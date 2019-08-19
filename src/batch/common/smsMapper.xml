@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sms">
+    
+	<insert id="sendSms" parameterType="java.util.HashMap">
+		declare @date datetime = getdate()
+                       exec [dbo].[USP_Set_em_tran_Insert] 
+                         @tran_phone          = #{RECEIVER}
+                       , @tran_callback       = #{SENDER}
+                       , @tran_date           = @date
+                       , @tran_msg            = #{SMS_MSG}
+                       , @tran_type           = '4'
+                       , @EmpNo               = '12345'   
+                       , @DomainCode          = '11'
+                       , @Module              = 'SD'
+    </insert>
+		
+</mapper>
+

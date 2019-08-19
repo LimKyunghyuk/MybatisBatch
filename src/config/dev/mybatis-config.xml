@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<environments default="lcpcweb">
+ 			
+		<environment id="lcpcweb">
+			<transactionManager type="JDBC"/>
+
+			<dataSource type="POOLED">
+				<property name="driver" value="com.tmax.tibero.jdbc.TbDriver"/>
+				<property name="url" value="jdbc:tibero:thin:@접속정보"/>
+				<property name="username" value="-"/>
+				<property name="password" value="-"/>
+			</dataSource>
+		</environment>
+	
+		<environment id="msfamobile">
+			<transactionManager type="JDBC"/>
+
+			<dataSource type="POOLED">
+				<property name="driver" value="com.tmax.tibero.jdbc.TbDriver"/>
+				<property name="url" value="jdbc:tibero:thin:@접속정보"/>
+				<property name="username" value="-"/>
+				<property name="password" value="-"/>
+			</dataSource>
+		</environment>
+
+		<environment id="im">
+			<transactionManager type="JDBC"/>
+			
+			<dataSource type="POOLED">
+				<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+				<property name="url" value="jdbc:sqlserver://접속정보;databaseName=im80"/>
+				<property name="url" value="jdbc:sqlserver://접속정보"/>
+				<property name="username" value="-"/>
+				<property name="password" value="-"/>
+			</dataSource>
+		</environment>
+		
+		<environment id="sms">
+			<transactionManager type="JDBC"/>
+			
+			<dataSource type="POOLED">
+				<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+				<property name="url" value="jdbc:sqlserver://접속정보"/>
+				<property name="username" value="-"/>
+				<property name="password" value="-"/>
+			</dataSource>
+		</environment>
+		
+		<environment id="kakao">
+			<transactionManager type="JDBC"/>
+			
+			<dataSource type="POOLED">
+				<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+				<property name="url" value="jdbc:sqlserver://접속정보;databaseName=kakaoTalk"/>
+				<property name="username" value="-"/>
+				<property name="password" value="-"/>
+			</dataSource>
+		</environment>
+		
+		<environment id="wision21">
+			<transactionManager type="JDBC"/>
+
+			<dataSource type="POOLED">
+				<property name="driver" value="com.tmax.tibero.jdbc.TbDriver"/>
+				<property name="url" value="jdbc:tibero:thin:@접속정보:msfa"/>
+				<property name="username" value="-"/>
+				<property name="password" value="-"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+		<mappers>
+			<mapper resource="batch/user/query/msfamobileMapper.xml"/>
+			<mapper resource="batch/user/query/lcpcwebMapper.xml"/>
+			<mapper resource="batch/user/query/imMapper.xml"/>
+			<mapper resource="batch/user/query/kakaoMapper.xml"/>
+			<mapper resource="batch/user/query/wision21Mapper.xml"/>
+			
+			<mapper resource="batch/common/smsMapper.xml"/>
+		</mappers>
+</configuration>

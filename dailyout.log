@@ -1,0 +1,14 @@
+main> [2018-02-06 15:19:18] [LogFactory] [135] [DEBUG] Logging initialized using 'class org.apache.ibatis.logging.log4j.Log4jImpl' adapter. 
+main> [2018-02-06 15:19:18] [PooledDataSource] [335] [DEBUG] PooledDataSource forcefully closed/removed all connections. 
+main> [2018-02-06 15:19:18] [PooledDataSource] [335] [DEBUG] PooledDataSource forcefully closed/removed all connections. 
+main> [2018-02-06 15:19:18] [PooledDataSource] [335] [DEBUG] PooledDataSource forcefully closed/removed all connections. 
+main> [2018-02-06 15:19:18] [PooledDataSource] [335] [DEBUG] PooledDataSource forcefully closed/removed all connections. 
+main> [2018-02-06 15:19:18] [JdbcTransaction] [137] [DEBUG] Opening JDBC Connection 
+main> [2018-02-06 15:19:19] [PooledDataSource] [406] [DEBUG] Created connection 249895724. 
+main> [2018-02-06 15:19:19] [JdbcTransaction] [101] [DEBUG] Setting autocommit to false on JDBC Connection [com.tmax.tibero.jdbc.TbConnection@ee51b2c] 
+main> [2018-02-06 15:19:19] [getUserList] [159] [DEBUG] ==>  Preparing: SELECT * FROM USERTABLE  
+main> [2018-02-06 15:19:19] [getUserList] [159] [DEBUG] ==> Parameters:  
+main> [2018-02-06 15:19:19] [getUserList] [159] [DEBUG] <==      Total: 1 
+main> [2018-02-06 15:19:19] [JdbcTransaction] [123] [DEBUG] Resetting autocommit to true on JDBC Connection [com.tmax.tibero.jdbc.TbConnection@ee51b2c] 
+main> [2018-02-06 15:19:19] [JdbcTransaction] [91] [DEBUG] Closing JDBC Connection [com.tmax.tibero.jdbc.TbConnection@ee51b2c] 
+main> [2018-02-06 15:19:19] [PooledDataSource] [363] [DEBUG] Returned connection 249895724 to pool. 

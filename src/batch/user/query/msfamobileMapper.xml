@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="msfamobile">
+    
+    <!-- 1. 부서 정보 업데이트 -->
+	<select id="getGpOrganization" resultType="hashMap"> 
+		SELECT 
+			ORG_ID,
+			COMPANY_CD,
+			DEPT_CD,
+			DEPT_NM,
+			PARENT_DEPT_CD,
+			DEPT_ENM,
+			DEPT_CNM,
+			DEPT_DEPTH,
+			DISPLAY_ORDER,
+			DISPLAY_YN,
+			DEPT_EMAIL_ADDR,
+			USE_YN,
+			INS_ID,	
+			UPD_ID
+		FROM 
+			TB_GP_ORGANIZATION
+	</select>
+	
+	<insert id="addGpOrganization" parameterType="java.util.HashMap">
+		INSERT INTO TB_GP_ORGANIZATION ( ORG_ID, 
+                                         COMPANY_CD, 
+                                         DEPT_CD,
+                                         DEPT_NM, 
+                                         PARENT_DEPT_CD, 
+                                         DEPT_ENM,
+                                         DEPT_CNM,
+                                         DEPT_DEPTH,
+                                         DISPLAY_ORDER,
+                                         DISPLAY_YN,
+                                         DEPT_EMAIL_ADDR,
+                                         USE_YN,
+                                         INS_DT,
+                                         UPD_DT )
+             		  VALUES
+             		  (
+	             		  #{ORG_ID, jdbcType=VARCHAR},
+	                      'LC',
+	                      #{DEPT_CD, jdbcType=VARCHAR},
+	                      #{DEPT_NM, jdbcType=VARCHAR},
+	                      #{PARENT_DEPT_CD, jdbcType=VARCHAR},
+	                      #{DEPT_ENM, jdbcType=VARCHAR},
+	                      #{DEPT_CNM, jdbcType=VARCHAR},
+	                      #{DEPT_DEPTH, jdbcType=VARCHAR},
+	                      #{DISPLAY_ORDER, jdbcType=VARCHAR},
+	                      #{DISPLAY_YN, jdbcType=VARCHAR},
+	                      #{DEPT_EMAIL_ADDR, jdbcType=VARCHAR},
+	                      #{USE_YN, jdbcType=VARCHAR},
+	                      SYSDATE,
+	                      SYSDATE 
+                      )
+    </insert>
+		
+	<delete id="deleteGpAdditionalJob">
+		DELETE FROM TB_GP_ORGANIZATION
+	</delete>
+
+	<!-- 2. 공통코드 업데이트 -->
+	<insert id="addGpCommonCode">
+         INSERT INTO TB_GP_COMMON_CODE ( CD_ID, 
+                                        COMPANY_CD, 
+                                        CD_TYPE,
+                                        CD_TYPE_NM,
+                                        CD,
+                                        CD_NM,
+                                        CD_ENM,
+                                        CD_CNM,
+                                        DISPLAY_ORDER,
+                                        DISPLAY_YN,
+                                        USE_YN,
+                                        INS_DT,
+                                        UPD_DT ) VALUES
+                      (                  
+	                   	  #{CD_ID, jdbcType=VARCHAR},
+	                      'LC',
+	                      #{CD_TYPE, jdbcType=VARCHAR},
+	                      #{CD_TYPE_NM, jdbcType=VARCHAR},
+	                      #{CD, jdbcType=VARCHAR},
+	                      #{CD_NM, jdbcType=VARCHAR},
+	                      #{CD_ENM, jdbcType=VARCHAR},
+	                      #{CD_CNM, jdbcType=VARCHAR},
+	                      #{DISPLAY_ORDER, jdbcType=VARCHAR},
+	                      #{DISPLAY_YN, jdbcType=VARCHAR},
+	                      #{USE_YN, jdbcType=VARCHAR},
+	                      SYSDATE,
+	                      SYSDATE
+                      )
+    </insert>
+    
+	<delete id="deleteGpCommonCode">
+        DELETE FROM TB_GP_COMMON_CODE
+    </delete>
+	
+	<!-- 3. 사용자 정보 업데이트 -->
+	<delete id="deleteGpUser">
+		 DELETE FROM TB_GP_USER
+	</delete>
+	
+	 <insert id="addGpUser" parameterType="java.util.HashMap">        
+         INSERT INTO TB_GP_USER ( USER_ID, 
+                                 COMPANY_CD, 
+                                 EMP_ID,
+                                 LOGIN_ID, 
+                                 USER_NM, 
+                                 USER_ENM,
+                                 USER_CNM,
+                                 DEPT_CD,
+                                 POSITION_CD,
+                                 GRADE_CD,
+                                 DUTY_CD,
+                                 EMP_CD,
+                                 JOB_CD,
+                                 LOC_CD,
+                                 OLD_EMP_ID,
+                                 EMAIL_ADDR,
+                                 OFFICE_EMAIL_ADDR,
+                                 OFFICE_TEL_NUM,
+                                 MOBILE,
+                                 HOME_PHONE,
+                                 MAIL_ALIAS,
+                                 DISPLAY_YN,
+                                 RETIRE_YN,
+                                 DISPLAY_ORDER,
+                                 PHOTO_URL,
+                                 MJOB,
+                                 JOB_NM,
+                                 PARTNER_YN,
+                                 CEO_YN,
+                                 MASTER_ACCOUNT,
+                                 SECOND_ACCOUNT,
+                                 INS_DT,
+                                 UPD_DT )
+             VALUES ( #{USER_ID, jdbcType=VARCHAR},
+                      #{COMPANY_CD, jdbcType=VARCHAR},
+                      #{EMP_ID, jdbcType=VARCHAR},
+                      #{LOGIN_ID, jdbcType=VARCHAR},
+                      #{USER_NM, jdbcType=VARCHAR},
+                      #{USER_ENM, jdbcType=VARCHAR},
+                      #{USER_CNM, jdbcType=VARCHAR},
+                      #{DEPT_CD, jdbcType=VARCHAR},
+                      #{POSITION_CD, jdbcType=VARCHAR},
+                      #{GRADE_CD, jdbcType=VARCHAR},
+                      #{DUTY_CD, jdbcType=VARCHAR},
+                      #{EMP_CD, jdbcType=VARCHAR},
+                      #{JOB_CD, jdbcType=VARCHAR},
+                      #{LOC_CD, jdbcType=VARCHAR},
+                      #{OLD_EMP_ID, jdbcType=VARCHAR},
+                      #{EMAIL_ADDR, jdbcType=VARCHAR},
+                      #{OFFICE_EMAIL_ADDR, jdbcType=VARCHAR},
+                      #{OFFICE_TEL_NUM, jdbcType=VARCHAR},
+                      #{MOBILE, jdbcType=VARCHAR},
+                      #{HOME_PHONE, jdbcType=VARCHAR},
+                      #{MAIL_ALIAS, jdbcType=VARCHAR},
+                      #{DISPLAY_YN, jdbcType=VARCHAR},
+                      #{RETIRE_YN, jdbcType=VARCHAR},
+                      #{DISPLAY_ORDER, jdbcType=VARCHAR},
+                      #{PHOTO_URL, jdbcType=VARCHAR},
+                      #{MJOB, jdbcType=VARCHAR},
+                      #{JOB_NM, jdbcType=VARCHAR},
+                      #{PARTNER_YN, jdbcType=VARCHAR},
+                      #{CEO_YN, jdbcType=VARCHAR},
+                      #{MASTER_ACCOUNT, jdbcType=VARCHAR},
+                      #{SECOND_ACCOUNT, jdbcType=VARCHAR},
+                      SYSDATE,
+                      SYSDATE)
+    </insert>  
+	
+	 
+	 <!-- 4. 부서 정보 동기화 -->
+	 <delete id="deleteCompanyDept">
+        DELETE FROM TB_COMPANY_DEPT
+    </delete>      
+    
+    <insert id="addCompanyDept">
+		INSERT INTO TB_COMPANY_DEPT
+		SELECT 'LOTTE', COMPANY_CD, DEPT_CD, PARENT_DEPT_CD, DEPT_NM, DEPT_ENM, DEPT_CNM, DISPLAY_ORDER, DEPT_DEPTH, DISPLAY_YN, USE_YN, INS_DT, UPD_DT
+		  FROM TB_GP_ORGANIZATION
+		 WHERE COMPANY_CD = 'LC'
+		   AND DEPT_CD IN (
+		                    SELECT DEPT_CD
+		                      FROM (
+		                              SELECT DEPT_CD, COUNT(*) CNT
+		                                FROM TB_GP_ORGANIZATION
+		                              WHERE COMPANY_CD = 'LC'
+		                              GROUP BY DEPT_CD
+		                          ) A
+		                    WHERE A.CNT = 1    
+		                  )
+    </insert>
+	 
+    
+    <!-- 5. 보직 정보 동기화 -->
+    <delete id="deleteCompanyDuty">
+        DELETE FROM TB_COMPANY_DUTY
+         WHERE GROUP_CD = 'LOTTE'
+           AND COMPANY_CD = 'LC'
+    </delete>     
+    
+     <insert id="addCompanyDuty">
+        INSERT INTO TB_COMPANY_DUTY
+        SELECT 'LOTTE', COMPANY_CD, CD_TYPE, CD, CD_NM, CD_ENM, CD_CNM, DISPLAY_ORDER, INS_DT, UPD_DT
+          FROM TB_GP_COMMON_CODE
+         WHERE CD_TYPE IN ('304', '305')
+           AND COMPANY_CD = 'LC'
+    </insert>    
+    
+	 <!-- 6. 퇴직자 처리 동기화 -->
+	 <select id="getRetireUser" resultType="hashMap">
+	       SELECT *
+	        FROM TB_USER
+	       WHERE GROUP_CD = 'LOTTE'
+	         AND COMPANY_CD = 'LC'
+	         AND RETIRE_YN = 'N'
+	         AND USE_YN = 'Y'           
+	         AND USER_DIVISION_CD = '201'
+	         AND USER_ID NOT IN ( SELECT USER_ID
+	                                FROM TB_GP_USER
+	                               WHERE COMPANY_CD = 'LC' )
+	</select>
+	  
+	<!-- 퇴직자로 업데이트 하는  쿼리임. -->
+    <update id="updateRetireUser" parameterType="java.util.HashMap">
+        UPDATE TB_USER
+           SET 
+               RETIRE_YN = 'Y',
+               USE_YN = 'N',
+               UPD_DT = SYSDATE,
+               GP_UPD_DT = SYSDATE
+         WHERE USER_SEQ = #{USER_SEQ}
+    </update>  
+    
+     <!-- 로그에 기록하는 쿼리임 -->
+     <insert id="addRetireLog">
+        INSERT INTO TB_LOG_WITHDRAW (
+            LOG_DT,
+            HOST_NM,
+            GROUP_CD,
+            COMPANY_CD,
+            USER_SEQ,
+            USER_DIVISION_CD,
+            INS_SEQ
+        ) VALUES (
+            SYSDATE,
+            'ADMIN',
+            'LOTTE',
+            'LC',
+            #{USER_SEQ},
+            '201',
+            '0'
+        )
+    </insert>
+    	  
+	<!-- TB_USER_MDN 테이블에서 삭제하는  쿼리임. -->
+    <delete id="deleteRetireUserMdn">
+        DELETE FROM TB_USER_MDN WHERE USER_SEQ = #{USER_SEQ}
+    </delete>
+    
+    <!-- TB_USER_ADDITIONAL_JOB 테이블에서 삭제하는  쿼리임. -->
+    <delete id="deleteRetireAdditionalJob">
+        DELETE FROM TB_USER_ADDITIONAL_JOB WHERE USER_SEQ = #{USER_SEQ}
+    </delete>
+	  
+    <!-- 7. 사용자 정보 동기화 -->
+	<!-- 수정된 사용자를 가져오는 쿼리임. 수정할 필요가 있다면 수정 요함.-->
+    <select id="getModifyUser" resultType="hashMap">
+        SELECT A.USER_SEQ, A.GROUP_CD, A.COMPANY_CD, A.USER_DIVISION_CD, B.*
+          FROM TB_USER A, TB_GP_USER B
+         WHERE A.USE_YN = 'Y'
+           AND A.COMPANY_CD = 'LC'
+           AND A.USER_ID = B.USER_ID     
+           AND A.USER_DIVISION_CD = '201'      
+         ORDER BY B.RETIRE_YN DESC
+    </select>
+    
+    <update id="updateUser">
+        UPDATE TB_USER
+           SET 
+               USER_NM = #{USER_NM, jdbcType=VARCHAR},
+               EMAIL_ADDR = #{EMAIL_ADDR, jdbcType=VARCHAR},
+               OFFICE_EMAIL_ADDR = #{OFFICE_EMAIL_ADDR, jdbcType=VARCHAR},
+               LOGIN_ID = #{LOGIN_ID, jdbcType=VARCHAR},
+               DEPT_CD = #{DEPT_CD, jdbcType=VARCHAR},
+               DUTY_CD = #{DUTY_CD, jdbcType=VARCHAR},
+               POSITION_CD = #{POSITION_CD, jdbcType=VARCHAR},
+               EMP_CD = #{EMP_CD, jdbcType=VARCHAR},               
+               UPD_DT = SYSDATE,
+               GP_UPD_DT = SYSDATE
+         WHERE USER_SEQ = #{USER_SEQ}
+    </update> 
+    
+    <!-- 배치 결과 업데이트  -->
+    <insert id="insertBatchResult" parameterType="java.util.HashMap">
+		INSERT	INTO BATCH_RESULT(
+			BATCH_NAME
+		  , BATCH_DATE	
+		  , STR_DATE
+		  , END_DATE
+		  , RESULT
+		  , REG_ID
+		  , REG_DATE
+		)VALUES(
+			#{BATCH_NAME}
+		  , TO_CHAR(SYSDATE, 'YYYYMMDD')
+		  , #{STR_DATE}
+		  , #{END_DATE}
+		  , #{RESULT}
+		  , 'ADMIN'
+		  , SYSDATE
+		)
+	</insert> 
+	
+    <insert id="insertTest" parameterType="java.util.HashMap">
+		INSERT	INTO TEST_TEST(
+			MEMO
+		)VALUES(
+			#{SALESORDER_NO}
+		)
+	</insert> 
+    
+    <delete id="deleteLog">
+		<![CDATA[
+	        DELETE FROM 
+				TB_LOG_SERVICE
+			WHERE
+				LOG_DT < TO_CHAR(ADD_MONTHS(SYSDATE, -2), 'YYYYMMDD')
+		]]>
+	</delete>
+</mapper>
+

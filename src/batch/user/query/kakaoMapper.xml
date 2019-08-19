@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kakao">
+	
+	<insert id="sendKakao" parameterType="java.util.HashMap">
+		declare @date datetime = getdate()
+				exec [dbo].[kakaosend] 
+                      @DEST_PHONE			= #{DEST_PHONE}
+                    , @SEND_PHONE			= #{SEND_PHONE}
+                    , @MSG_BODY				= #{MSG_BODY}
+                    , @TEMPLATE_CODE        = #{TEMPLATE_CODE}
+                    , @RE_TYPE				= "SMS"
+                    , @RE_BODY				= #{MSG_BODY} 
+	</insert>
+	
+</mapper>
+

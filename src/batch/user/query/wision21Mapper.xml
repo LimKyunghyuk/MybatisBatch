@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wision21">
+    
+	 <insert id="insertCustMstSus" parameterType="java.util.HashMap">
+    	MERGE INTO TSD_CUST_MST TCM 
+			USING DUAL
+			ON
+			(
+				CUST_CD = #{CUST_CD}
+				AND ORG_CD = #{ORG_CD}
+			)
+			WHEN MATCHED THEN
+				UPDATE SET 
+					CHANNEL_CD = #{CHANNEL_CD}
+					,CUST_NM = #{CUST_NM}
+					,ADDRESS = #{ADDRESS}
+					,ZIPCODE = #{ZIPCODE}
+					,AREA = #{AREA}
+					,CUST_ABBR = #{CUST_ABBR}
+					,TEL_NO = #{TEL_NO}
+					,FAX_NO = #{FAX_NO}
+					,OPER_REGNO = #{OPER_REGNO}
+					,OPER_NM = #{OPER_NM}
+					,BIZ_CATEGORY = #{BIZ_CATEGORY}
+					,ACCOUNT_GRP = #{ACCOUNT_GRP}
+					,CUSTOM_CLASS = #{CUSTOM_CLASS}
+					,SUPPLY_ENT = #{SUPPLY_ENT}
+					,DEBENT = #{DEBENT}
+					,OWNER_REGNO = #{OWNER_REGNO}
+					,BIZ_REGNO = #{BIZ_REGNO}
+					,MOBILE_NO = #{MOBILE_NO}
+					,TRN_AREA = #{TRN_AREA}
+					,DEBT = #{DEBT}
+					,ESTIMATE = #{ESTIMATE}
+					,TAX_ESTIMATE = #{TAX_ESTIMATE}
+					,EMAIL_YN = #{EMAIL_YN}
+					,SMS_YN = #{SMS_YN}
+					,ELEC_ACCOUNT = #{ELEC_ACCOUNT}
+					,BANK_ACCOUNT_GBN = #{BANK_ACCOUNT_GBN}
+					,CONTRACT_YN = #{CONTRACT_YN}
+					,BOND_GBN = #{BOND_GBN}
+					,TAX_TYPE = #{TAX_TYPE}
+					,HO_YN = #{HO_YN}
+					,CORP_NO = #{CORP_NO}
+					,OWNER = #{OWNER}
+					,BIZ_CONDITION = #{BIZ_CONDITION}
+					,ITM_TYPE = #{ITM_TYPE}
+					,SUM_CUST_CD = #{SUM_CUST_CD}
+					,CREDIT_STAT = #{CREDIT_STAT}
+					,CREDIT_LEVEL = #{CREDIT_LEVEL}
+					,OLD_CUST_CD = #{OLD_CUST_CD}
+					,TAX_SUM_CUST_CD = #{TAX_SUM_CUST_CD}
+					,DISTRI_CHL = #{DISTRI_CHL}
+					,ITEM_GRP = #{ITEM_GRP}
+					,CUST_GRP = #{CUST_GRP}
+					,PRICE_GRP = #{PRICE_GRP}
+					,MONEY_UNIT = #{MONEY_UNIT}
+					,BRANCH_CD = #{BRANCH_CD}
+					,DEPT_CD = #{DEPT_CD}
+					,CREDIT_AREA = #{CREDIT_AREA}
+					,LOANLIMIT = #{LOANLIMIT}
+					,MISULIMIT = #{MISULIMIT}
+					,REG_ID = #{REG_ID}
+					,REG_DATE = #{REG_DATE}
+					,MOD_ID = #{MOD_ID}
+					,MOD_DATE = #{MOD_DATE}
+					,TRN_DATE = #{TRN_DATE}
+					,TRN_UPDATE_DT = #{TRN_UPDATE_DT}
+				
+			WHEN NOT MATCHED THEN
+				INSERT (
+					 CUST_CD
+					,CHANNEL_CD
+					,CUST_NM
+					,ADDRESS
+					,ZIPCODE
+					,AREA
+					,CUST_ABBR
+					,TEL_NO
+					,FAX_NO
+					,OPER_REGNO
+					,OPER_NM
+					,BIZ_CATEGORY
+					,ACCOUNT_GRP
+					,CUSTOM_CLASS
+					,SUPPLY_ENT
+					,DEBENT
+					,OWNER_REGNO
+					,BIZ_REGNO
+					,MOBILE_NO
+					,TRN_AREA
+					,DEBT
+					,ESTIMATE
+					,TAX_ESTIMATE
+					,EMAIL_YN
+					,SMS_YN
+					,ELEC_ACCOUNT
+					,BANK_ACCOUNT_GBN
+					,CONTRACT_YN
+					,BOND_GBN
+					,TAX_TYPE
+					,HO_YN
+					,CORP_NO
+					,OWNER
+					,BIZ_CONDITION
+					,ITM_TYPE
+					,SUM_CUST_CD
+					,CREDIT_STAT
+					,CREDIT_LEVEL
+					,OLD_CUST_CD
+					,TAX_SUM_CUST_CD
+					,ORG_CD
+					,DISTRI_CHL
+					,ITEM_GRP
+					,CUST_GRP
+					,PRICE_GRP
+					,MONEY_UNIT
+					,BRANCH_CD
+					,DEPT_CD
+					,CREDIT_AREA
+					,LOANLIMIT
+					,MISULIMIT
+					,REG_ID
+					,REG_DATE
+					,MOD_ID
+					,MOD_DATE
+					,TRN_DATE
+					,TRN_UPDATE_DT
+				)VALUES(
+					 #{CUST_CD}
+					,#{CHANNEL_CD}
+					,#{CUST_NM}
+					,#{ADDRESS}
+					,#{ZIPCODE}
+					,#{AREA}
+					,#{CUST_ABBR}
+					,#{TEL_NO}
+					,#{FAX_NO}
+					,#{OPER_REGNO}
+					,#{OPER_NM}
+					,#{BIZ_CATEGORY}
+					,#{ACCOUNT_GRP}
+					,#{CUSTOM_CLASS}
+					,#{SUPPLY_ENT}
+					,#{DEBENT}
+					,#{OWNER_REGNO}
+					,#{BIZ_REGNO}
+					,#{MOBILE_NO}
+					,#{TRN_AREA}
+					,#{DEBT}
+					,#{ESTIMATE}
+					,#{TAX_ESTIMATE}
+					,#{EMAIL_YN}
+					,#{SMS_YN}
+					,#{ELEC_ACCOUNT}
+					,#{BANK_ACCOUNT_GBN}
+					,#{CONTRACT_YN}
+					,#{BOND_GBN}
+					,#{TAX_TYPE}
+					,#{HO_YN}
+					,#{CORP_NO}
+					,#{OWNER}
+					,#{BIZ_CONDITION}
+					,#{ITM_TYPE}
+					,#{SUM_CUST_CD}
+					,#{CREDIT_STAT}
+					,#{CREDIT_LEVEL}
+					,#{OLD_CUST_CD}
+					,#{TAX_SUM_CUST_CD}
+					,#{ORG_CD}
+					,#{DISTRI_CHL}
+					,#{ITEM_GRP}
+					,#{CUST_GRP}
+					,#{PRICE_GRP}
+					,#{MONEY_UNIT}
+					,#{BRANCH_CD}
+					,#{DEPT_CD}
+					,#{CREDIT_AREA}
+					,#{LOANLIMIT}
+					,#{MISULIMIT}
+					,#{REG_ID}
+					,#{REG_DATE}
+					,'W21_BATCH'
+					,#{MOD_DATE}
+					,#{TRN_DATE}
+					,#{TRN_UPDATE_DT}
+			)
+    </insert>
+    
+	<insert id="insertCustMstErr" parameterType="java.util.HashMap">
+		INSERT INTO 
+			TSD_CUST_MST_BATCH_ERR 
+			(
+				 CUST_CD
+				,CHANNEL_CD
+				,CUST_NM
+				,ADDRESS
+				,ZIPCODE
+				,AREA
+				,CUST_ABBR
+				,TEL_NO
+				,FAX_NO
+				,OPER_REGNO
+				,OPER_NM
+				,BIZ_CATEGORY
+				,ACCOUNT_GRP
+				,CUSTOM_CLASS
+				,SUPPLY_ENT
+				,DEBENT
+				,OWNER_REGNO
+				,BIZ_REGNO
+				,MOBILE_NO
+				,TRN_AREA
+				,DEBT
+				,ESTIMATE
+				,TAX_ESTIMATE
+				,EMAIL_YN
+				,SMS_YN
+				,ELEC_ACCOUNT
+				,BANK_ACCOUNT_GBN
+				,CONTRACT_YN
+				,BOND_GBN
+				,TAX_TYPE
+				,HO_YN
+				,CORP_NO
+				,OWNER
+				,BIZ_CONDITION
+				,ITM_TYPE
+				,SUM_CUST_CD
+				,CREDIT_STAT
+				,CREDIT_LEVEL
+				,OLD_CUST_CD
+				,TAX_SUM_CUST_CD
+				,ORG_CD
+				,DISTRI_CHL
+				,ITEM_GRP
+				,CUST_GRP
+				,PRICE_GRP
+				,MONEY_UNIT
+				,BRANCH_CD
+				,DEPT_CD
+				,CREDIT_AREA
+				,LOANLIMIT
+				,MISULIMIT
+				,REG_ID
+				,REG_DATE
+				,MOD_ID
+				,MOD_DATE
+				,TRN_DATE
+				,TRN_UPDATE_DT
+			)VALUES(
+				 #{CUST_CD}
+				,#{CHANNEL_CD}
+				,#{CUST_NM}
+				,#{ADDRESS}
+				,#{ZIPCODE}
+				,#{AREA}
+				,#{CUST_ABBR}
+				,#{TEL_NO}
+				,#{FAX_NO}
+				,#{OPER_REGNO}
+				,#{OPER_NM}
+				,#{BIZ_CATEGORY}
+				,#{ACCOUNT_GRP}
+				,#{CUSTOM_CLASS}
+				,#{SUPPLY_ENT}
+				,#{DEBENT}
+				,#{OWNER_REGNO}
+				,#{BIZ_REGNO}
+				,#{MOBILE_NO}
+				,#{TRN_AREA}
+				,#{DEBT}
+				,#{ESTIMATE}
+				,#{TAX_ESTIMATE}
+				,#{EMAIL_YN}
+				,#{SMS_YN}
+				,#{ELEC_ACCOUNT}
+				,#{BANK_ACCOUNT_GBN}
+				,#{CONTRACT_YN}
+				,#{BOND_GBN}
+				,#{TAX_TYPE}
+				,#{HO_YN}
+				,#{CORP_NO}
+				,#{OWNER}
+				,#{BIZ_CONDITION}
+				,#{ITM_TYPE}
+				,#{SUM_CUST_CD}
+				,#{CREDIT_STAT}
+				,#{CREDIT_LEVEL}
+				,#{OLD_CUST_CD}
+				,#{TAX_SUM_CUST_CD}
+				,#{ORG_CD}
+				,#{DISTRI_CHL}
+				,#{ITEM_GRP}
+				,#{CUST_GRP}
+				,#{PRICE_GRP}
+				,#{MONEY_UNIT}
+				,#{BRANCH_CD}
+				,#{DEPT_CD}
+				,#{CREDIT_AREA}
+				,#{LOANLIMIT}
+				,#{MISULIMIT}
+				,#{REG_ID}
+				,#{REG_DATE}
+				,'W21_BATCH'
+				,#{MOD_DATE}
+				,#{TRN_DATE}
+				,#{TRN_UPDATE_DT}
+		)
+    </insert>
+</mapper>
+

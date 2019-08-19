@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="init" name="build-batch-dev">
+	<!--
+	ant -Dapache.common.lib= -Dtarget.dir=
+	-->
+	<property environment="env"/>
+	<property file="build-batch-real.properties" />
+
+	<path id="classpath.path">
+		<fileset dir="${path.lib}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="init" depends="backup, clean, deploy, build, copyXml, batchForPermission"/>
+
+	<target name="backup">
+		<tstamp>
+	        <format property="TODAY" pattern="yyyyMMddHHmm" />
+		</tstamp>
+		<mkdir dir="${path.backup}"/>
+		<zip destfile="${path.backup}/${backup.name}_${TODAY}.zip">
+			<fileset dir="${path.workspace}"/>
+		</zip>
+	</target>
+	
+	<target name="clean">
+		<delete dir="${path.workspace}"/>
+		<mkdir dir="${path.workspace}"/>
+	</target>
+	
+	<target name="deploy">
+		<copy todir="${path.workspace}" overwrite="true" preservelastmodified="true">
+			<fileset dir="${path.deploy}">
+				<exclude name="**/.svn/**"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="build">
+	    <mkdir dir="${path.classes}"/>
+		<javac 
+			encoding="${javac.encoding}"
+    		destdir="${path.classes}"
+    		source="${javac.source}"
+    		deprecation="${javac.deprecation}" 
+    		debug="${javac.debug}" 
+    		fork="${javac.fork}" 
+    		verbose="${javac.verbose}"
+			>
+			<classpath refid="classpath.path"/>
+			<src location="${path.src}"/>
+		</javac>
+	</target>
+
+	<target name="copyXml">
+		<copy todir="${path.classes}">
+			<fileset dir="${path.src}">
+				<include name="**/*.xml"/>
+				<include name="**/*.properties"/>
+			</fileset>
+		</copy>    
+	</target>
+	
+	<target name="batchForPermission">
+		<chmod file="${path.scripts}/**" perm="777"/>
+	</target>
+	
+</project>

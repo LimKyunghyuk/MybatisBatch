@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lcpcweb">
+	<select id="getGpCommonCode" resultType="hashMap"> 
+		SELECT
+            	CD,
+				CD_NM,
+				CD_TYPE,
+				CD_TYPE_NM,
+				DISPLAY_YN,
+				USE_YN
+          FROM (
+		    	SELECT TRIM(CODE) AS CD, 
+				       TRIM(CODE_NM) AS CD_NM,
+				       CASE
+				        WHEN CODE LIKE '324%' THEN '304'
+				        WHEN CODE LIKE '323%' THEN '305'
+				       ELSE ''
+				       END AS CD_TYPE,
+				       CASE
+				        WHEN CODE LIKE '324%' THEN '직책'
+				        WHEN CODE LIKE '323%' THEN '직위'
+				       ELSE ''
+				       END AS CD_TYPE_NM,
+				       'Y' AS DISPLAY_YN,
+				       'Y' USE_YN
+				  FROM TSFA_CODE_INFO
+				 WHERE (CODE LIKE '324%'
+				     OR CODE LIKE '323%')
+	    		 AND GRP_CD = 'E1'
+	    		 )
+	</select>
+	
+	
+	<!-- 3. 사용자 정보 업데이트 -->
+	<select  id="getGpUser" resultType="hashMap">
+	     SELECT
+		  		COMPANY_CD,
+		    	USER_ID,
+		    	EMP_ID,
+		    	LOGIN_ID,
+				USER_NM,
+				POSITION_CD,
+				DEPT_CD,
+				DUTY_CD,
+				RETIRE_YN,
+				HOME_PHONE,
+				MOBILE,
+				EMAIL_ADDR,
+				DISPLAY_YN
+		  FROM 
+		 (          
+		 SELECT 
+				'LC' 		AS COMPANY_CD,
+				TRIM(EMP_ID) AS USER_ID,
+				TRIM(EMP_ID) AS EMP_ID,
+				TRIM(EMP_ID) AS LOGIN_ID,	
+				TRIM(EMP_NM) AS USER_NM, 
+				TRIM(POSITION_CD) AS POSITION_CD, 
+				TRIM(DEPT_CD) AS DEPT_CD, 
+				ASSIGNMENT_CD AS DUTY_CD,
+				CASE RESIGN_YN
+				WHEN '0' THEN 'N'
+				ELSE ''
+				END AS RETIRE_YN, 
+				TEL_NO AS HOME_PHONE, 
+				MOBILE_NO AS MOBILE, 
+				EMAIL AS EMAIL_ADDR,
+				CASE RESIGN_YN
+				WHEN '0' THEN 'Y'
+				WHEN '1' THEN 'N'
+				ELSE ''
+				END AS DISPLAY_YN
+			FROM TSFA_EMP_MST
+			WHERE RESIGN_YN = '0'
+		 )
+	</select>
+
+	<!-- IM 부서정보 -->
+	<delete id="deleteVwSFADept">
+		DELETE TSFA_ERPDEPT_MST
+	</delete>
+	
+	 <insert id="addVwSFADept">
+		INSERT INTO TSFA_ERPDEPT_MST (
+         	DEPT_ERP_CD
+		  , DEPT_ERP_NM
+		  , TRN_DATE
+		)
+		VALUES 
+		(
+			#{DEPT_ERP_CD, jdbcType=VARCHAR}
+		  , #{DEPT_ERP_NM, jdbcType=VARCHAR}
+		  , TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+		)
+    </insert>
+    
+	 <!-- IM 조직래밸 -->
+    <delete id="deleteVwSFAOrg">
+		DELETE TSFA_ERPORG_MST
+	</delete>
+	 
+	<insert id="addVwSFAOrg">
+		INSERT INTO TSFA_ERPORG_MST (
+			DEPT_ERP_CD
+		  , ORG_ERP_CD
+		  , ORG_ERP_LEV
+		  , UPPERORG_ERP_CD
+		  , OFER_START_DATE
+		  , OFER_END_DATE
+		  , TRN_DATE
+		  )
+		VALUES (
+			#{DEPT_ERP_CD, jdbcType=VARCHAR} 
+		  , #{ORG_ERP_CD, jdbcType=VARCHAR}
+		  , #{ORG_ERP_LEV, jdbcType=VARCHAR}
+		  , #{UPPERORG_ERP_CD, jdbcType=VARCHAR}
+		  , #{OFER_START_DATE, jdbcType=VARCHAR}
+		  , #{OFER_END_DATE, jdbcType=VARCHAR}
+		  , TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+		  )
+	</insert>
+    
+	<insert id="updateBarcodeMst">
+		UPDATE	/* 2018.06.12 | lcpcwebMapper.xml | updateBarcodeMst | */
+			TSFA_BARCODE_MST
+		SET
+			DISCOUNT_YN = #{DISCOUNT_YN}
+		WHERE
+			ITEM_CD = #{ITEM_CD}
+	</insert>
+	
+	<select id="selectNewPostInBoard" resultType="hashMap">
+		SELECT /* 2018.09.04 | lcpcwebMapper.xml | selectNewPostInBoard | */
+			BBS_SEQ
+		  , EMP_ID
+		  , RECVER
+		  , '0234799114' AS SENDER
+		  , SYSDATE
+		  , SMS_MSG
+		  , CODE
+		  , '11' AS DOMAINCODE
+		  , '22' AS MMS_BODY
+		  , '33' AS MMS_SUBJECT
+		  , 'SD' AS MODULE
+		FROM 
+			TSFA_COMMUNICATION_SMS
+		WHERE 
+			SMS_YN = 'N'
+	</select>
+	
+	<insert id="updateNewPostInBoard">
+		UPDATE /* 2018.09.04 | lcpcwebMapper.xml | updateNewPostInBoard | */
+			TSFA_COMMUNICATION_SMS 
+		SET 
+			SMS_YN = 'Y'
+		WHERE 
+			BBS_SEQ = #{BBS_SEQ} 
+			AND SMS_YN = 'N'
+	</insert>
+	
+	<insert id="updateAllNewPostInBoard">
+		UPDATE /* 2018.09.04 | lcpcwebMapper.xml | updateAllNewPostInBoard | */
+			TSFA_COMMUNICATION_SMS 
+		SET 
+			SMS_YN = 'Y'
+		WHERE  
+			SMS_YN = 'N'
+	</insert>
+	
+	<delete id="deleteLog">
+	    <![CDATA[
+			DELETE FROM
+				TSFA_CONN_LOG
+			WHERE
+				CONN_DATE < TO_CHAR(ADD_MONTHS(SYSDATE, -2), 'YYYYMMDD')
+		]]>
+	</delete>
+</mapper>
+

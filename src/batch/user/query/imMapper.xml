@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="im">
+	
+   
+	
+	<select id="getVwSFADept" resultType="hashMap"> 
+		SELECT 
+			DeptCd		AS DEPT_ERP_CD	-- 부서코드		
+		  , DeptNm		AS DEPT_ERP_NM  -- 부서명		
+		FROM
+			vwSFADept
+	</select>
+	
+	
+
+	<select  id="getVwSFAOrg" resultType="hashMap">
+		SELECT
+			DeptCd		AS DEPT_ERP_CD		-- 부서코드
+		  , OrgCd		AS ORG_ERP_CD		-- 조직코드
+		  , Lvl-1		AS ORG_ERP_LEV		-- 조직레밸
+		  , PKey		AS UPPERORG_ERP_CD	-- 상위레벨 조직코드
+		  , BegDate		AS OFER_START_DATE	-- 적용시작일
+		  , EndDate		AS OFER_END_DATE	-- 적용종료일
+		FROM 
+			vwSFAOrg
+		WHERE
+			OrgType = '0'			
+			AND EndDate = '99991231'
+	</select>
+	
+	
+</mapper>
+
